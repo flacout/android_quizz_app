@@ -14,10 +14,14 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
-public class QuizActivity extends AppCompatActivity {
+import org.json.JSONException;
+import org.json.JSONObject;
+
+public class QuizActivity extends AppCompatActivity{
     private static final String TAG = "QuizActivity";
     private static final String KEY_INDEX = "index";
 
@@ -34,9 +38,10 @@ public class QuizActivity extends AppCompatActivity {
             new Question(R.string.question_asia, true),
     };
     private int mCurrentIndex = 0;
+    private RequestQueue queue;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         Log.d(TAG, "onCreate(Bundle) called");
         setContentView(R.layout.activity_quiz);
@@ -45,14 +50,6 @@ public class QuizActivity extends AppCompatActivity {
         int question = mQuestionBank[mCurrentIndex].getTextResId();
         mQuestionTextView.setText(question);
 
-        mTrueButton = (Button) findViewById(R.id.true_button);
-        mTrueButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                checkAnswer(true);
-                Log.d("correct", "correct answer");
-            }
-        });
 
         mFalseButton = (Button) findViewById(R.id.false_button);
         mFalseButton.setOnClickListener(new View.OnClickListener() {
@@ -63,9 +60,9 @@ public class QuizActivity extends AppCompatActivity {
         });
 
         mNextButton = (Button) findViewById(R.id.next_button);
-        mNextButton.setOnClickListener(new View.OnClickListener() {
+        mNextButton.setOnClickListener(new View.OnClickListener(){
             @Override
-            public void onClick(View view) {
+            public void onClick(View view){
                 mCurrentIndex = (mCurrentIndex+1) % mQuestionBank.length;
                 updateQuestion();
             }
@@ -76,7 +73,7 @@ public class QuizActivity extends AppCompatActivity {
         updateQuestion();
 
         // INTERNET HTTP REQUEST
-        RequestQueue queue = Volley.newRequestQueue(this);
+        queue = Volley.newRequestQueue(this);
         String url ="http://fabricelacout.pythonanywhere.com/";
         // Request a string response from the provided URL.
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
@@ -95,6 +92,33 @@ public class QuizActivity extends AppCompatActivity {
         });
         // Add the request to the RequestQueue.
         queue.add(stringRequest);
+
+        mTrueButton = (Button) findViewById(R.id.true_button);
+        mTrueButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String url = "http://fabricelacout.pythonanywhere.com/andro";
+                JsonObjectRequest jsonO = new JsonObjectRequest(
+                        Request.Method.GET, url, null,
+                        new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try{
+                            Log.d(TAG, "JSON_HELLO"+ response.get("hello"));
+                        }
+                        catch (JSONException e){;}
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d(TAG, "error in my json");
+                    }
+                });
+                queue.add(jsonO);
+
+            }
+        });
+
     }
 
 
