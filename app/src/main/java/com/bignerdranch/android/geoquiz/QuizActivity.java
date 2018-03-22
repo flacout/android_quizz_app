@@ -59,6 +59,14 @@ public class QuizActivity extends AppCompatActivity{
             }
         });
 
+        mTrueButton = (Button) findViewById(R.id.true_button);
+        mTrueButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                checkAnswer(true);
+            }
+        });
+
         mNextButton = (Button) findViewById(R.id.next_button);
         mNextButton.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -71,7 +79,7 @@ public class QuizActivity extends AppCompatActivity{
             mCurrentIndex = savedInstanceState.getInt(KEY_INDEX, 0);
         }
         updateQuestion();
-
+/*
         // INTERNET HTTP REQUEST
         queue = Volley.newRequestQueue(this);
         String url ="http://fabricelacout.pythonanywhere.com/";
@@ -117,7 +125,7 @@ public class QuizActivity extends AppCompatActivity{
                 queue.add(jsonO);
 
             }
-        });
+        });*/
 
     }
 
