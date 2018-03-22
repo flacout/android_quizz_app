@@ -102,54 +102,6 @@ public class QuizActivity extends AppCompatActivity{
             mCurrentIndex = savedInstanceState.getInt(KEY_INDEX, 0);
         }
         updateQuestion();
-/*
-        // INTERNET HTTP REQUEST
-        queue = Volley.newRequestQueue(this);
-        String url ="http://fabricelacout.pythonanywhere.com/";
-        // Request a string response from the provided URL.
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        // Display the first 1000 characters of the response string.
-                        Log.d(TAG, response.substring(0, 1000));
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.d(TAG, "That didn't work!");
-                }
-        });
-        // Add the request to the RequestQueue.
-        queue.add(stringRequest);
-
-        mTrueButton = (Button) findViewById(R.id.true_button);
-        mTrueButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String url = "http://fabricelacout.pythonanywhere.com/andro";
-                JsonObjectRequest jsonO = new JsonObjectRequest(
-                        Request.Method.GET, url, null,
-                        new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        try{
-                            Log.d(TAG, "JSON_HELLO"+ response.get("hello"));
-                        }
-                        catch (JSONException e){;}
-                    }
-                }, new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.d(TAG, "error in my json");
-                    }
-                });
-                queue.add(jsonO);
-
-            }
-        });*/
-
     }
 
     @Override
