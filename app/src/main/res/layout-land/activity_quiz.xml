@@ -33,14 +33,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|center"
-        android:text="@string/cheat_button" />
+        android:text="he" />
 
         <Button
             android:id="@+id/next_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|right"
-            android:text="@string/next_button"
+            android:text="hf"
             android:drawableRight="@drawable/arrow_right"
             android:drawablePadding="4dp"/>
 
